@@ -27,14 +27,18 @@ public class WizardInfoService {
                 () -> new RuntimeException("ID Not found. Please enter valid ID")
         );
         repository.deleteById(id);
-        return "Wizard ID:" + id +"successfully deleted";
+        return "Wizard ID: " + id +" successfully deleted";
     }
 
-    public String updateWizardInfo(WizardInfo wizardInfo){
-        repository.findById(wizardInfo.getWizard_id()).orElseThrow(
-                () -> new RuntimeException("ID Not found. Please enter valid ID")
+    public String updateWizardInfo(Long wizard_id,WizardInfo wizardInfo){
+        WizardInfo foundWizard = repository.findById(wizard_id).
+                orElseThrow(() -> new RuntimeException("Wizard ID: "+wizard_id+ " not found")
         );
-        repository.save(wizardInfo);
+        foundWizard.setWizard_name(wizardInfo.getWizard_name());
+        foundWizard.setAge(wizardInfo.getAge());
+        foundWizard.setJoined_date(wizardInfo.getJoined_date());
+        foundWizard.setActive_wizard(wizardInfo.getActive_wizard());
+        repository.save(foundWizard);
         return "Wizard updated successfully";
     }
 }

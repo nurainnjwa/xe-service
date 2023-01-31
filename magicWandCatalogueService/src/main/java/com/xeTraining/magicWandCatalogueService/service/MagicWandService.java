@@ -27,12 +27,12 @@ public class MagicWandService {
                 () -> new RuntimeException("ID Not found")
         );
         repository.deleteById(id);
-        return "Magic Wand with ID: "+ id + " deleted";
+        return "Magic Wand ID: "+ id + " successfully deleted";
     }
 
     public String updateMagicWandCatalogue(Long wand_id, MagicWand magicWand){
         MagicWand foundWand = repository.findById(wand_id)
-                .orElseThrow(() -> new RuntimeException("Not found")
+                .orElseThrow(() -> new RuntimeException(wand_id+" not found")
         );
         foundWand.setMagic_wand_name(magicWand.getMagic_wand_name());
         foundWand.setMagic_wand_desc(magicWand.getMagic_wand_desc());

@@ -49,6 +49,7 @@ public class OrderService {
 
             for (NewWizardPojo wizardPojo : responseWizard.getBody()) {
                 if (wizardPojo.getWizard_id() == order.getWizard_id()) {
+                    log.info(String.valueOf(wizardPojo.getWizard_id()));
                     if (!wizardPojo.getActive_wizard().equals("Y")) {
                         return wizardPojo.getWizard_name() +
                                 "'s status is not active";
@@ -57,7 +58,6 @@ public class OrderService {
                     order.setAge(wizardPojo.getAge());
                     for(NewMagicWandPojo magicWandPojo : responseMagic.getBody()){
                         if (magicWandPojo.getWand_id() == order.getWand_id()) {
-                            log.info(magicWandPojo.getMagic_wand_desc());
                             if (order.getAge() > magicWandPojo.getAge_limit()) {
                                 return wizardPojo.getWizard_name() + "'s age: "
                                         +order.getAge()+ " exceeds the " +
@@ -69,12 +69,11 @@ public class OrderService {
                             }
                             order.setMagic_wand_name(magicWandPojo.getMagic_wand_name());
                             order.setMagic_wand_desc(magicWandPojo.getMagic_wand_desc());
-                            log.info(magicWandPojo.getMagic_wand_desc());
 
                             order.setMagic_wand_stock(magicWandPojo.getMagic_wand_stock() - 1);
                             order.setAge_limit(magicWandPojo.getAge_limit());
 
-                            magicWandPojo.setWand_id(order.getId());
+                           // magicWandPojo.setWand_id(order.getOrder_id());
                             magicWandPojo.setMagic_wand_stock(order.getMagic_wand_stock());
 
                             HttpEntity<NewMagicWandPojo> request = new HttpEntity<>(magicWandPojo);
@@ -90,44 +89,9 @@ public class OrderService {
             }
             return "Wizard id: " + order.getWizard_id()+ " invalid";
 
-//
-//            for (NewWizardPojo wizardPojo : responseWizard.getBody()) {
-//                if (wizardPojo.getWizard_id() == order.getWizard_id() &&
-//                        wizardPojo.getActive_wizard().equals("Y") ) {
-//                    order.setWizard_name(wizardPojo.getWizard_name());
-//                    order.setAge(wizardPojo.getAge());
-//                    for(NewMagicWandPojo magicWandPojo : responseMagic.getBody()){
-//                        if (magicWandPojo.getWand_id() == order.getWand_id()  &&
-//                                wizardPojo.getAge() <= magicWandPojo.getAge_limit() &&
-//                                magicWandPojo.getMagic_wand_stock() > 0) {
-//                            order.setMagic_wand_name(magicWandPojo.getMagic_wand_name());
-//                            order.setMagic_wand_stock(magicWandPojo.getMagic_wand_stock() - 1);
-//                            order.setAge_limit(magicWandPojo.getAge_limit());
-//                            //magicWandPojo.setMagic_wand_stock(order.getMagic_wand_stock()); ;
-//                            repository.save(order);
-//                            return "Order created successfully";
-//                        }
-////                        if (magicWandPojo.getWand_id() != order.getWand_id()){
-////                            return "ID is not valid or exist";
-////                        }
-////                        else if ( wizardPojo.getAge() > magicWandPojo.getAge_limit()){
-////                            return "Wizard's Age exceed";
-////                        }
-////                        else if ( magicWandPojo.getMagic_wand_stock() < 0){
-////                            return "Magic Wand is not in stock";
-////                        }
-//                    }
-//                    return "Invalid Wand ID";
-//                }
-////                else if (wizardPojo.getActive_wizard().equals("N")){
-////                    return "Wizard is not active";
-////                }
-//            }
-//            return "Invalid Wizard id";
-
         } catch (Exception e) {
             e.printStackTrace();
-            return "Some technical Error Please try again after some time";
+            return "Some technical Error. Please try again after some time";
         }
     }
 
@@ -138,10 +102,18 @@ public class OrderService {
         repository.deleteById(id);
     }
 
-    public Order updateOrder(Order order){
-        repository.findById(order.getId()).orElseThrow(
-                () -> new RuntimeException("Not found")
+    public Order updateOrder(Long order_id, Order order){
+        Order foundOrder = repository.findById(order_id)
+                .orElseThrow(() -> new RuntimeException(order_id + " not found")
         );
-        return repository.save(order);
+        foundOrder.setMagic_wand_name(order.getMagic_wand_name());
+        foundOrder.setMagic_wand_desc(order.getMagic_wand_desc());
+        foundOrder.setWizard_id(order.getWizard_id());
+        foundOrder.setWand_id(order.getWand_id());
+        foundOrder.setWizard_name(order.getWizard_name());
+        foundOrder.setAge(order.getAge());
+        foundOrder.setAge_limit(order.getAge_limit());
+        foundOrder.setMagic_wand_stock(order.getMagic_wand_stock());
+        return repository.save(foundOrder);
     }
 }

@@ -8,11 +8,6 @@ class WizardInfoServiceApplicationTests {
 
 	@Test
 	public void testGetWizardInfo() {
-//		try{
-//
-//		} catch (Exception e){
-//			assert
-//		}
 	}
 
 }

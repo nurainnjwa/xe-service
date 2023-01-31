@@ -35,8 +35,8 @@ public class WizardInfoController {
         return service.deleteWizardInfo(id);
     }
 
-    @PutMapping("/update")
-    public String updateWizardInfo(@RequestBody WizardInfo wizardInfo){
-        return service.updateWizardInfo(wizardInfo);
+    @PutMapping("/update/{wizard_id}")
+    public String updateWizardInfo(@PathVariable Long wizard_id, @RequestBody WizardInfo wizardInfo){
+        return service.updateWizardInfo(wizard_id,wizardInfo);
     }
 }

@@ -49,14 +49,14 @@ public class OrderController {
         return service.addOrder(order);
     }
 
-//    @GetMapping("/delete{id}")
-//    public void deleteOrder(@PathVariable(value = "id")long id){
-//        service.deleteOrder(id);
-//    }
-//
-//    @PutMapping("/update/{id}")
-//    public Order updateWizardInfo(@RequestBody Order order){
-//        return service.updateOrder(order);
-//    }
-    //}
+    @GetMapping("/delete{id}")
+    public void deleteOrder(@PathVariable(value = "id")long id){
+        service.deleteOrder(id);
+    }
+
+    @PutMapping("/update/{order_id}")
+    public Order updateWizardInfo(@PathVariable Long order_id, @RequestBody Order order){
+        return service.updateOrder(order_id,order);
+    }
+
 }

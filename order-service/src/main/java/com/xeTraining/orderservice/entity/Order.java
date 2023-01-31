@@ -13,8 +13,8 @@ public class Order {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", nullable = false)
-    private Long id;
+    @Column(name = "order_id", nullable = false)
+    private Long order_id;
 
     @Column(name = "wizard_id")
     private Long wizard_id;

@@ -10,10 +10,6 @@ public class OrderServiceApplication {
 
 	@Bean
 	public RestTemplate getRestTemplate(){
-//		HttpComponentsClientHttpRequestFactory httpRequestFactory = new HttpComponentsClientHttpRequestFactory();
-//		httpRequestFactory.setConnectionRequestTimeout(4000);
-//		httpRequestFactory.setConnectTimeout(4000);
-//		httpRequestFactory.setReadTimeout(4000);
 		return new RestTemplate();
 	}
 
