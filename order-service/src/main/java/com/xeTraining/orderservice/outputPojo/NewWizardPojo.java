@@ -1,4 +1,4 @@
-package outputPojo;
+package com.xeTraining.orderservice.outputPojo;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;

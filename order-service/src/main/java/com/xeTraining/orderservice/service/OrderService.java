@@ -1,8 +1,8 @@
 package com.xeTraining.orderservice.service;
 
 import com.xeTraining.orderservice.controller.OrderController;
-import outputPojo.NewMagicWandPojo;
-import outputPojo.NewWizardPojo;
+import com.xeTraining.orderservice.outputPojo.NewMagicWandPojo;
+import com.xeTraining.orderservice.outputPojo.NewWizardPojo;
 import com.xeTraining.orderservice.entity.Order;
 import com.xeTraining.orderservice.repository.OrderRepository;
 import org.slf4j.Logger;
