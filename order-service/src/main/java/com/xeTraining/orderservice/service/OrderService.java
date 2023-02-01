@@ -1,8 +1,8 @@
 package com.xeTraining.orderservice.service;
 
 import com.xeTraining.orderservice.controller.OrderController;
-import com.xeTraining.orderservice.entity.NewMagicWandPojo;
-import com.xeTraining.orderservice.entity.NewWizardPojo;
+import outputPojo.NewMagicWandPojo;
+import outputPojo.NewWizardPojo;
 import com.xeTraining.orderservice.entity.Order;
 import com.xeTraining.orderservice.repository.OrderRepository;
 import org.slf4j.Logger;
@@ -48,6 +48,7 @@ public class OrderService {
                     null, new ParameterizedTypeReference<List<NewMagicWandPojo>>() {});
 
             for (NewWizardPojo wizardPojo : responseWizard.getBody()) {
+                log.info(String.valueOf(wizardPojo.getWizard_name()));
                 if (wizardPojo.getWizard_id() == order.getWizard_id()) {
                     log.info(String.valueOf(wizardPojo.getWizard_id()));
                     if (!wizardPojo.getActive_wizard().equals("Y")) {
