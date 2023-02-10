@@ -14,8 +14,6 @@ public class MagicWandController {
     @Autowired
     MagicWandService service;
 
-    private MagicWand magicWand = new MagicWand();
-
     @GetMapping("/magicWandList")
     public List<MagicWand> getList(){
         return service.getMagicWandCatalogue();

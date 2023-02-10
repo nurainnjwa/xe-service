@@ -24,7 +24,7 @@ public class OrderService {
     @Autowired
     OrderRepository repository;
 
-    RestTemplate restTemplate = new RestTemplate();
+    public RestTemplate restTemplate = new RestTemplate();
 
     String url = "http://localhost:8080/api/demo/wizardInfoList";
     String url2 = "http://localhost:8082/api/demo/magicWandList";
@@ -35,17 +35,21 @@ public class OrderService {
         this.restTemplate = restTemplateBuilder.build();
     }
 
+
+
     public List<Order> getOrder(){
         return repository.findAll();
     }
 
     public String addOrder(Order order){
         try {
-            ResponseEntity<List<NewWizardPojo>> responseWizard = restTemplate.exchange(url, HttpMethod.GET,
-                    null, new ParameterizedTypeReference<List<NewWizardPojo>>() {});
+            ResponseEntity<List<NewWizardPojo>> responseWizard = restTemplate.exchange(url,
+                    HttpMethod.GET, null,
+                    new ParameterizedTypeReference<List<NewWizardPojo>>() {});
 
-            ResponseEntity<List<NewMagicWandPojo>> responseMagic = restTemplate.exchange(url2, HttpMethod.GET,
-                    null, new ParameterizedTypeReference<List<NewMagicWandPojo>>() {});
+            ResponseEntity<List<NewMagicWandPojo>> responseMagic = restTemplate.exchange(url2,
+                    HttpMethod.GET, null,
+                    new ParameterizedTypeReference<List<NewMagicWandPojo>>() {});
 
             for (NewWizardPojo wizardPojo : responseWizard.getBody()) {
                 log.info(String.valueOf(wizardPojo.getWizard_name()));
@@ -74,7 +78,6 @@ public class OrderService {
                             order.setMagic_wand_stock(magicWandPojo.getMagic_wand_stock() - 1);
                             order.setAge_limit(magicWandPojo.getAge_limit());
 
-                           // magicWandPojo.setWand_id(order.getOrder_id());
                             magicWandPojo.setMagic_wand_stock(order.getMagic_wand_stock());
 
                             HttpEntity<NewMagicWandPojo> request = new HttpEntity<>(magicWandPojo);

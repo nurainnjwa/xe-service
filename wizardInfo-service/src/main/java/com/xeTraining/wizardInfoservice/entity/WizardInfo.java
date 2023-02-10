@@ -2,6 +2,7 @@ package com.xeTraining.wizardInfoservice.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
@@ -11,10 +12,8 @@ import java.time.LocalDate;
 @Table(name = "wizard_info")
 @Getter
 @Setter
+@NoArgsConstructor
 public class WizardInfo {
-
-    public WizardInfo() {
-    }
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
