@@ -19,6 +19,7 @@ import org.springframework.web.client.RestTemplate;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
@@ -210,5 +211,44 @@ public class OrderTest {
         assertEquals("Red Wand's stock unavailable", result);
     }
 
+    @Test
+    public void testGetOrder() {
+        List<Order> orders = new ArrayList<Order>();
+        orders.add(new Order(20L,2L, 2L, "Yoon", 30,
+                "Harry Potter Wand", "A harry potter's theme wand",
+                25, 50));
+        orders.add(new Order(20L,2L, 2L, "Isa", 20,
+                "Sailor Moon Wand", "A Sailor Moon's theme wand",
+                25, 30));
+
+        when(repository.findAll()).thenReturn(orders);
+
+        List<Order> result = orderService.getOrder();
+        assertEquals(2, result.size());
+    }
+
+    @Test
+    public void testDeleteOrder(){
+        Order orders = (new Order(20L,2L, 2L, "Yoon", 30,
+                "Harry Potter Wand", "A harry potter's theme wand",
+                25, 50));
+        when(repository.findById(20L)).thenReturn(Optional.of(orders));
+        String result = orderService.deleteOrder(20L);
+        assertEquals("Order successfully deleted", result);
+    }
+
+    @Test
+    public void testDeleteOrder_OrderIDNotFound(){
+        try{
+            Order orders = (new Order(1L,2L, 2L, "Yoon", 30,
+                    "Harry Potter Wand", "A harry potter's theme wand",
+                    25, 50));
+            when(repository.findById(20L)).thenReturn(Optional.of(orders));
+            String result = orderService.deleteOrder(1L);
+        }catch (Exception e){
+            assertEquals("Order ID not found", e.getMessage());
+        }
+
+    }
 }
 
