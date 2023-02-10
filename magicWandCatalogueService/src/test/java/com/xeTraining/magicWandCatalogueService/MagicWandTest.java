@@ -59,12 +59,13 @@ public class MagicWandTest {
     @Test
     public void testDeleteWizardInfo_WizardIDNotFound(){
         try{
-            MagicWand magicWand = (new MagicWand(1L, "Cute Magic Wand",
-                    "A cute wand with cartoon theme", 25, 50));
-            when(magicWandRepository.findById(100L)).thenReturn(Optional.of(magicWand));
-            String result = magicWandService.deleteMagicWand(100L);
+            MagicWand magicWand = (new MagicWand(4L, "Cute Magic Wand",
+                    "A cute wand with cartoon theme",
+                    25, 50));
+            when(magicWandRepository.findById(1L)).thenReturn(Optional.of(magicWand));
+            String result = magicWandService.deleteMagicWand(4L);
         } catch (Exception e){
-            assertEquals(e.getMessage(), "Wand ID: 100 not found");
+            assertEquals(e.getMessage(), "ID Not found. Please enter valid ID");
         }
     }
 
@@ -85,9 +86,9 @@ public class MagicWandTest {
                     "A cute wand with cartoon theme", 25, 50));
             when(magicWandRepository.findById(100L)).thenReturn(Optional.of(magicWand));
             when(magicWandRepository.save(magicWand)).thenReturn(magicWand);
-            String result = magicWandService.updateMagicWandCatalogue(100L,magicWand);
+            String result = magicWandService.updateMagicWandCatalogue(1L,magicWand);
         } catch (Exception e){
-            assertEquals(e.getMessage(), "Wand ID: 100 not found");
+            assertEquals(e.getMessage(), "ID Not found. Please enter valid ID");
         }
     }
 
