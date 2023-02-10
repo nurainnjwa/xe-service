@@ -99,11 +99,12 @@ public class OrderService {
         }
     }
 
-    public void deleteOrder(Long id){
+    public String deleteOrder(Long id){
         repository.findById(id).orElseThrow(
-                () -> new RuntimeException("Not found")
+                () -> new RuntimeException("Order ID not found")
         );
         repository.deleteById(id);
+        return "Order successfully deleted";
     }
 
     public Order updateOrder(Long order_id, Order order){
