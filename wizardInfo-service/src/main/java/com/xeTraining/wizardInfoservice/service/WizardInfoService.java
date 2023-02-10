@@ -32,7 +32,7 @@ public class WizardInfoService {
 
     public String updateWizardInfo(Long wizard_id,WizardInfo wizardInfo){
         WizardInfo foundWizard = repository.findById(wizard_id).
-                orElseThrow(() -> new RuntimeException("Wizard ID: "+wizard_id+ " not found")
+                orElseThrow(() -> new RuntimeException("ID Not found. Please enter valid ID")
         );
         foundWizard.setWizard_name(wizardInfo.getWizard_name());
         foundWizard.setAge(wizardInfo.getAge());
