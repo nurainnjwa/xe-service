@@ -64,8 +64,6 @@ public class WizardInfoTest {
 
     @Test
     public void testDeleteWizardInfo_WizardIDNotFound(){
-        WizardInfoTest wizardInfoTest = new WizardInfoTest();
-
         try{
             WizardInfo wizardInfo = new WizardInfo (4L, "Harry Potter",
                     17, LocalDate.of(2022,07,07),
@@ -82,9 +80,9 @@ public class WizardInfoTest {
         WizardInfo wizardInfo = new WizardInfo (4L, "Harry Potter",
                 17, LocalDate.of(2022,07,07),
                 "Y");
-        when(wizardInfoRepository.findById(1L)).thenReturn(Optional.of(wizardInfo));
+        when(wizardInfoRepository.findById(4L)).thenReturn(Optional.of(wizardInfo));
         when(wizardInfoRepository.save(wizardInfo)).thenReturn(wizardInfo);
-        String result = wizardInfoService.updateWizardInfo(1L, wizardInfo);
+        String result = wizardInfoService.updateWizardInfo(4L, wizardInfo);
         assertEquals("Wizard updated successfully", result);
     }
 
@@ -98,10 +96,10 @@ public class WizardInfoTest {
 
             when(wizardInfoRepository.findById(1L)).thenReturn(Optional.of(wizardInfo));
             when(wizardInfoRepository.save(wizardInfo)).thenReturn(wizardInfo);
-            String result = wizardInfoService.updateWizardInfo(1L, wizardInfo);
+            String result = wizardInfoService.updateWizardInfo(10L, wizardInfo);
 
         } catch (Exception e){
-            assertEquals(e.getMessage(), "Wizard ID: 1 Not found. Please enter valid ID");
+            assertEquals(e.getMessage(), "ID Not found. Please enter valid ID");
         }
     }
 }
